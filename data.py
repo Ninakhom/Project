@@ -3,8 +3,10 @@ import ast
 import requests 
 conn = create_connection()
 cursor = get_cursor(conn)
+cursor.execute("""Create table if not exists food_table(food_name TEXT,nutrients TEXT,serving_size REAL)""")
+conn.commit()
 def get_food_info(food_name):
-    cursor.execute("SELECT * FROM food_table WHERE food_name=?", (food_name,))
+    cursor.execute("select * from food_table where food_name=?",(food_name,))
     food_info = cursor.fetchone()
     if food_info:
         return ast.literal_eval(food_info[1]),food_info[2]
@@ -22,10 +24,3 @@ def get_food_info(food_name):
         )
         conn.commit()
         return nutrients, serving_size
-
-food_name = "apple"
-result = get_food_info(food_name)
-print(result)
-
-# Close the cursor and connection when done
-close_connection(conn)

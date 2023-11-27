@@ -6,7 +6,7 @@ def create_connection():
             host="localhost",
             user="root",
             password="",
-            database="restuarantsystem"
+            database="res"
         )
         print("Connected to the database")
         return connection
