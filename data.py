@@ -20,7 +20,19 @@ def get_food_info(food_name):
         serving_size=food_item["servingSize"]
 
         cursor.execute("""insert into food_table (food_name,nutrients, serving_size) values
-                (?,?,?)""", (food_name,str(nutrients), serving_size)
+                (?,?,?,?)""", (food_name,str(nutrients), serving_size)
         )
         conn.commit()
         return nutrients, serving_size
+    
+cal=0
+po=0
+fat=0
+car=0
+
+while True:
+    food_name= input("enter")
+    if food_name=="done":
+        break
+    food_intake=float(input("Enter amont of:" ))
+    nutrients,serving_size=get_food_info(food_name)

@@ -6,7 +6,7 @@ def create_connection():
             host="localhost",
             user="root",
             password="",
-            database=""
+            database="python_gui"
         )
         print("Connected to the database")
         return connection

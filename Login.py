@@ -1,65 +1,90 @@
-from ConnectDB import create_connection, close_connection, get_cursor
-conn = create_connection()
-cursor = get_cursor(conn)
+# from ConnectDB import create_connection, close_connection, get_cursor
+# conn = create_connection()
+# cursor = get_cursor(conn)
 from code import interact
-from multiprocessing.sharedctypes import Value
 import tkinter
-import mysql.connector as mysql
 from tkinter import messagebox
 import os
+from PIL import ImageTk, Image
 frm = tkinter.Tk()
-frm.geometry("400x250")
+frm.geometry("1166x718")
 frm.title("Login")
+frm.resizable(0,0)
+frm.state('zoomed')
+bg_frame=Image.open('images\\bg.jpg')
+photo =ImageTk.PhotoImage(bg_frame)
+bg_panel=tkinter.Label(frm,image=photo)
+bg_panel.image = photo
+bg_panel.pack(fill='both',expand='yes')
+lgn_frame = tkinter.Frame(frm, bg='#040405', width=950, height=600)
+lgn_frame.place(x=500, y=230)
+frm.txt = "WELCOME"
+frm.heading = tkinter.Label(lgn_frame, text=frm.txt, font=('yu gothic ui', 25, "bold"), bg="#040405",
+                             fg='white',
+                             bd=5,
+                             relief="flat")
+frm.heading.place(x=80, y=30, width=300, height=30)
 
-def showPasswd():
-    if (v1.get() == 1):
-        txt_pass.config(show="")
-    else:
-        txt_pass.config(show="*")
 
-def login():
-    user = txt_user.get()
-    passwd = txt_pass.get()
-    query = "SELECT * FROM user where Usern='"+user+"' AND Userp='"+passwd+"'"
-    cursor.execute(query)
-    infoData = cursor.fetchone()
+side_image = Image.open('images\\vector.png')
+photo = ImageTk.PhotoImage(side_image)
+side_image_label = tkinter.Label(lgn_frame, image=photo, bg='#040405')
+side_image_label.image = photo
+side_image_label.place(x=5, y=100)
 
-    if (infoData == None):
-        messagebox.showinfo("Result", "Sorry...your username or password incorrect!")
-    else:
-        frm.destroy()
-        os.system("python Display.py")
-    
-def cancel():
-    frm.destroy()
 
-lb1 = tkinter.Label(frm, text="Username:")
-lb1.place(x=50, y=20)
-lb1.config(font=('Times New Roman', 14, 'bold'))
+sign_in_image = Image.open('images\\hyy.png')
+photo = ImageTk.PhotoImage(sign_in_image)
+sign_in_image_label = tkinter.Label(lgn_frame, image=photo, bg='#040405')
+sign_in_image_label.image = photo
+sign_in_image_label.place(x=620, y=130)
 
-lb2 = tkinter.Label(frm, text="Password:")
-lb2.place(x=50, y=80)
-lb2.config(font=('Times New Roman', 14, 'bold'))
 
-txt_user = tkinter.Entry(frm)
-txt_user.place(x=160, y=20)
-txt_user.config(font=('Times New Roman', 14))
+sign_in_label = tkinter.Label(lgn_frame, text="Sign In", bg="#040405", fg="white",
+                            font=("yu gothic ui", 17, "bold"))
+sign_in_label.place(x=650, y=240)
 
-txt_pass = tkinter.Entry(frm, show="*")
-txt_pass.place(x=160, y=80)
-txt_pass.config(font=('Times New Roman', 14))
 
-v1 = tkinter.IntVar()
-cb_pass = tkinter.Checkbutton(frm, text="Show Password", variable=v1, onvalue=1, offvalue=0, command=showPasswd)
-cb_pass.place(x=160, y=120)
-cb_pass.config(font=('Times New Roman', 14))
+username_label = tkinter.Label(lgn_frame, text="Username", bg="#040405", fg="#4f4e4d",
+                                    font=("yu gothic ui", 13, "bold"))
+username_label.place(x=550, y=300)
 
-btn_save = tkinter.Button(frm, text="Login", width=10, command=login)
-btn_save.place(x=60, y=170)
-btn_save.config(font=('Times New Roman', 14))
+username_entry = tkinter.Entry(lgn_frame, highlightthickness=0, relief="flat", bg="#040405", fg="#6b6a69",
+                                    font=("yu gothic ui ", 12, "bold"), insertbackground = '#6b6a69')
+username_entry.place(x=580, y=335, width=270)
 
-btn_cancel = tkinter.Button(frm, text="Cancel", width=10, command=cancel)
-btn_cancel.place(x=230, y=170)
-btn_cancel.config(font=('Times New Roman', 14))
+username_line = tkinter.Canvas(lgn_frame, width=300, height=2.0, bg="#bdb9b1", highlightthickness=0)
+username_line.place(x=550, y=359)
+        # ===== Username icon =========
+username_icon = Image.open('images\\username_icon.png')
+photo = ImageTk.PhotoImage(username_icon)
+username_icon_label = tkinter.Label(lgn_frame, image=photo, bg='#040405')
+username_icon_label.image = photo
+username_icon_label.place(x=550, y=332)
 
+lgn_button = Image.open('images\\btn1.png')
+photo = ImageTk.PhotoImage(lgn_button)
+lgn_button_label = tkinter.Label(lgn_frame, image=photo, bg='#040405')
+lgn_button_label.image = photo
+lgn_button_label.place(x=550, y=450)
+login = tkinter.Button(lgn_button_label, text='LOGIN', font=("yu gothic ui", 13, "bold"), width=25, bd=0,
+                            bg='#3047ff', cursor='hand2', activebackground='#3047ff', fg='white')
+login.place(x=20, y=10)
+password_label = tkinter.Label(lgn_frame, text="Password", bg="#040405", fg="#4f4e4d",
+                            font=("yu gothic ui", 13, "bold"))
+password_label.place(x=550, y=380)
+
+password_entry = tkinter.Entry(lgn_frame, highlightthickness=0, relief="flat", bg="#040405", fg="#6b6a69",
+                            font=("yu gothic ui", 12, "bold"), show="*", insertbackground = '#6b6a69')
+password_entry.place(x=580, y=416, width=244)
+
+password_line = tkinter.Canvas(lgn_frame, width=300, height=2.0, bg="#bdb9b1", highlightthickness=0)
+password_line.place(x=550, y=440)
+        # ======== Password icon ================
+password_icon = Image.open('images\\password_icon.png')
+photo = ImageTk.PhotoImage(password_icon)
+password_icon_label = tkinter.Label(lgn_frame, image=photo, bg='#040405')
+password_icon_label.image = photo
+password_icon_label.place(x=550, y=414)
+       
 frm.mainloop()
